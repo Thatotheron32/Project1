@@ -9,7 +9,7 @@ def go_to_home():
     return redirect(url_for("home.hometep"))
 
 app.register_blueprint(home, url_prefix= "/home")
-app.register_blueprint(rc, url_prefix= "/home/rcclac")
+app.register_blueprint(rc, url_prefix= "/home/rccalc")
 
 if __name__ == 'main':
     app.run(debug=True, port=5000)
