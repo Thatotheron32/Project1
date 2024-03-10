@@ -58,5 +58,15 @@ nav a:hover {
 }
 
 footer{
-  
+  background-color: #545F66;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  position: fixed;
+}
+
+footer p{
+  text-align: left;
 }
