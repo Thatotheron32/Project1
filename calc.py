@@ -4,7 +4,7 @@ voltage = 0
 RVal = 0
 CVal = 0
 #Sets Global Variables 
-9def Valueset(V,R,C,T):
+def Valueset(V,R,C,T):
     global voltage, RVal, CVal, timeMax
     voltage = V
     RVal = R
