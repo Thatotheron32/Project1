@@ -1,4 +1,6 @@
+# Clean Up code is needed
 import math
+import numpy as np
 timeMax = 0
 voltage = 0
 RVal = 0
@@ -25,15 +27,19 @@ def rccalc():
 def eulers(step):
     global voltage, RVal, CVal, timeMax
     i = 1
-    Vval = [-1*(voltage)/(RVal*CVal)]
-    Sval = [0]
+    x = [0]
+    Yval = [voltage]
+    Vval = [(Yval[i-1]-(Yval[i-1]/(RVal*CVal)))]
+    deltaY = [Vval[i-1] * step]
     Nval = [0]
     while i < timeMax:
-       Sval.append(Sval[i-1] + step)
-       Vval.append(Vval[i-1] + step*(-1*((voltage)/(RVal*CVal))))
+       x.append(x[i-1] + step)
+       Yval.append[np.add(Yval[i-1],deltaY[i-1])] # issue with adding two list need to look into -dongyu 2:36AM 3/19
+       deltaY.append(Vval[i-1] * step)
+       Vval.append(Vval[i-1] + step * (Yval[i] - (Yval[i] / (RVal * CVal))))
        Nval.append(i)
        i += 1
-    return Vval, Sval,
+    return Vval, x,
 
     
 
