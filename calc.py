@@ -1,11 +1,10 @@
 # Clean Up code is needed
 import math
-import numpy as np
 timeMax = 0
 voltage = 0
 RVal = 0
 CVal = 0
-#Sets Global Variables 
+#Sets Global Variables +
 def Valueset(V,R,C,T):
     global voltage, RVal, CVal, timeMax
     voltage = V
@@ -34,9 +33,9 @@ def eulers(step):
     Nval = [0]
     while i < timeMax:
        x.append(x[i-1] + step)
-       Yval.append[np.add(Yval[i-1],deltaY[i-1])] # issue with adding two list need to look into -dongyu 2:36AM 3/19
-       deltaY.append(Vval[i-1] * step)
+       Yval.append(Yval[i-1] + deltaY[i-1]) # issue with adding two list need to look into -dongyu 2:36AM 3/19
        Vval.append(Vval[i-1] + step * (Yval[i] - (Yval[i] / (RVal * CVal))))
+       deltaY.append(Vval[i] * step)
        Nval.append(i)
        i += 1
     return Vval, x,
