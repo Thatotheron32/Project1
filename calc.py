@@ -30,13 +30,13 @@ def eulers(step):
     i = 1
     x = [0] # Time steps 
     Yval = [voltage] # Intital Voltage
-    Vval = [(Yval[i-1]-(Yval[i-1]/(RVal*CVal)))] # First DV/DT
+    Vval = [-1*(Yval[i-1]/(RVal*CVal))] # First DV/DT
     deltaY = [Vval[i-1] * step] # First step of Delta Y
     Nval = [0] # how many times it was taken. 
     while i < timeMax: #Starts a loop that stops when it's equal to asked time.
        x.append(x[i-1] + step) # Increments the time step. 
        Yval.append(Yval[i-1] + deltaY[i-1]) # New Y val calculation. 
-       Vval.append(Yval[i] - (Yval[i] / (RVal * CVal))) # DV/Dt Calculation. 
+       Vval.append(-1*(Yval[i] / (RVal * CVal))) # DV/Dt Calculation. 
        deltaY.append(Vval[i] * step) # New Delta Y calculation. 
        Nval.append(i) # Step calculation. 
        i += 1
