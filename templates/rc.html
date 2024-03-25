@@ -21,12 +21,45 @@
 </nav>
 <body>
     <p>This was a page made for an RC Circuit Calculator and Grapher that will give you solutions in both a table form and a Graph. </p>
-    
-</body>
 
-<figure>
+</body>
+<div> 
+    <h3>Enter Values Here for the Graph</h3>
+    <form action="{{ url_for('rc.calc') }}" method="post"> 
+        <label for="IVolt"> Initial Voltage</label><br>
+        <input type="number" id="IVolt" name="IVolt" value="0" step="0.1" min="0" max="100"><br>
+        <label for="ResVal"> Resistor Value </label><br>
+        <input type="number" id="ResVal" name="ResVal" value="0"step="0.1" min="0" max="100"><br>
+        <label for="CapVal"> Capacitor Value, scale is in MilliFarads.</label><br>
+        <input type="number" id="CapVal" name="CapVal" value="0" step=""0.01 min="0" max="100"><br>
+        <label for="Maxtime"> Enter maximum time for function, scale is in Centiseconds </label><br>
+        <input type="number" id="Maxtime" name="Maxtime" value="0" step= "10" min="0" max="1000"><br>
+        <label for="Steptime"> Enter time step for Euler's method, scale is in Centiseconds </label><br>
+        <input type="number" id="Steptime" name="Steptime" value="0" step="0.01" min="0" max="100" ><br>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+</div>
+<div>
+    <figure>
     
-</figure>
+    </figure>
+</div>
+<div>
+    <table>
+        <caption>Table for General Solution Graph</caption>
+        <tr>
+            <th>Time in Centiseconds</th>
+            <th>Voltage</th>
+        </tr>
+        {% for x, ClacV %}
+        <tr>
+            <td> {{ x }} </td>
+            <td> {{ CalcV }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 <footer>
     <p>Author: Dongyu Jin</p>
 </footer>
