@@ -8,10 +8,10 @@ CVal = 0 #Value for Capacitor in Series.
 #Sets Global Variables
 def Valueset(V,R,C,T):
     global voltage, RVal, CVal, timeMax
-    voltage = V
-    RVal = R
-    CVal = C
-    timeMax = T
+    voltage = float(V)
+    RVal = float(R)
+    CVal = float(C)
+    timeMax = float(T)
 
 #Real Value Calculation of the function
 def rccalc():
@@ -26,6 +26,7 @@ def rccalc():
 #euler calculation for the Fuction. 
 def eulers(step):
     global voltage, RVal, CVal, timeMax
+    step = float(step)
     # i = 1 for initialization. 
     i = 1
     x = [0] # Time steps 
