@@ -9,9 +9,9 @@ def rccalc():
 
 @rc.route("/", methods = ['POST','GET'])
 def getvalue():
-    Valueset(request.form.get['IVolt'], request.form.get['ResVal'], request.form.get['CapVal'], request.form.get['Maxtime'])
+    Valueset(request.form['IVolt'], request.form['ResVal'], request.form['CapVal'], request.form['Maxtime'])
     SolCord = rcsolcalc() 
-    EulersCord = eulers(request.form.get['Steptime'])
+    EulersCord = eulers(request.form['Steptime'])
     return render_template('rc.html', SolCord = SolCord, EulersCord = EulersCord)
     
 
