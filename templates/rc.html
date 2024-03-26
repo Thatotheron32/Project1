@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/rccalc.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>RC Circuit Calculator</title>
 </head>
 <article>
@@ -19,48 +21,78 @@
         <li><a href="about./">About</a></li>
       </ul> 
 </nav>
+
 <body>
     <p>This was a page made for an RC Circuit Calculator and Grapher that will give you solutions in both a table form and a Graph. </p>
 
+    <div class="flex-container">
+        <h3>Enter Values Here for the Graph</h3>
+        <form action="{{ url_for('rc.getvalue') }}" method="post"> 
+            <label for="IVolt"> Initial Voltage</label><br>
+            <input type="number" id="IVolt" name="IVolt" value="0" step="0.1" min="0.1" max="100"><br>
+            <label for="ResVal"> Resistor Value </label><br>
+            <input type="number" id="ResVal" name="ResVal" value="0"step="0.1" min="0.1" max="100"><br>
+            <label for="CapVal"> Capacitor Value, scale is in MilliFarads.</label><br>
+            <input type="number" id="CapVal" name="CapVal" value="0" step=""0.01 min="0.01" max="100"><br>
+            <label for="Maxtime"> Enter maximum time for function, scale is in Centiseconds </label><br>
+            <input type="number" id="Maxtime" name="Maxtime" value="0" step= "10" min="10" max="1000"><br>
+            <label for="Steptime"> Enter time step for Euler's method, scale is in Centiseconds </label><br>
+            <input type="number" id="Steptime" name="Steptime" value="0" step="0.01" min="0.01" max="100" ><br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </div>
+    <div>
+        <canvas id = ”RCchart” width=”900” height = “900”> 
+
+        </canvas> 
+        <script>
+            var RCchart = document.getElementById("RCchart").getContext("2d")
+            var lineChart = new Chart("RCchart",{
+                type: "line",
+                data:{
+                    labels : {{ x | safe}},
+                    datasets: [{
+                        label: "Real Voltage",
+                        borderColor: "red",
+                        fill : false,
+                        data: {{ realY | safe}},
+                        lineTension: 0.1
+                    },{
+                        label: "Estimated Voltage",
+                        borderColor: "green",
+                        fill : false,
+                        data: {{ CalcV | safe }}
+                        lineTension: 0.1
+                    }]
+                },
+                options: {
+                    resposive : false
+                    title: {
+                        display: true,
+                        text: 'Positive Cases of COVID in provinces of Canada'
+                        },
+                        hover: {
+                            mode: 'index',
+                            intersect: true
+                        },}
+            });
+        </script>
+    </div>
+    <div>
+        <table>
+            <caption><h2>Table for General Solution Graph</h2></caption>
+            <tr>
+                <th>Time in Centiseconds</th>
+                <th>Voltage</th>
+            </tr>
+             {% for x, CalcV in  %}
+                <tr>
+                    <td>{{ CalcV }}</td>
+                    <td>{{ x }}</td>     
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
-<div> 
-    <h3>Enter Values Here for the Graph</h3>
-    <form action="{{ url_for('rc.getvalue') }}" method="post"> 
-        <label for="IVolt"> Initial Voltage</label><br>
-        <input type="number" id="IVolt" name="IVolt" value="0" step="0.1" min="0.1" max="100"><br>
-        <label for="ResVal"> Resistor Value </label><br>
-        <input type="number" id="ResVal" name="ResVal" value="0"step="0.1" min="0.1" max="100"><br>
-        <label for="CapVal"> Capacitor Value, scale is in MilliFarads.</label><br>
-        <input type="number" id="CapVal" name="CapVal" value="0" step=""0.01 min="0.01" max="100"><br>
-        <label for="Maxtime"> Enter maximum time for function, scale is in Centiseconds </label><br>
-        <input type="number" id="Maxtime" name="Maxtime" value="0" step= "10" min="10" max="1000"><br>
-        <label for="Steptime"> Enter time step for Euler's method, scale is in Centiseconds </label><br>
-        <input type="number" id="Steptime" name="Steptime" value="0" step="0.01" min="0.01" max="100" ><br>
-        <input type="submit" value="Submit">
-        <input type="reset" value="Reset">
-    </form>
-</div>
-<div>
-    <figure>
-    
-    </figure>
-</div>
-<div>
-    <table>
-        <caption>Table for General Solution Graph</caption>
-        <tr>
-            <th>Time in Centiseconds</th>
-            <th>Voltage</th>
-        </tr>
-        {% for x, ClacV in rc %}
-        <tr>
-            <td> {{ x }} </td>
-            <td> {{ CalcV }} </td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-<footer>
-    <p>Author: Dongyu Jin</p>
-</footer>
 </html>

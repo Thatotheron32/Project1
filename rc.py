@@ -11,9 +11,9 @@ def rccalc():
 
 @rc.route("/", methods = ['POST'])
 def getvalue():
-    Valueset(request.form['IVolt'],request.form['ResVal'],request.form['CapVal'],request.form['Maxtime'])
-    CalcV = rccalc()
-    Voltage,dvdx,x,deltaY,steps =  eulers(request.form['Steptime'])
-    return render_template('rc.html')
+    Valueset(request.form['IVolt'], request.form['ResVal'], request.form['CapVal'], request.form['Maxtime'])
+    CalcV = [0,1,2,3,4,5,6,7,8,9]
+    x = [0,1,2,3,4,5,6,7,8,9]
+    return render_template('rc.html', CalcV = CalcV, x=x,)
     
 
