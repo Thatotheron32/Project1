@@ -82,18 +82,48 @@
         </div>
         <div>
             <table>
-                <caption><h2>Table for General Solution Graph</h2></caption>
+                <caption><h2>Table for General Solution Graph </h2></caption>
+            <thead>
                 <tr>
                     <th>Time in Centiseconds</th>
                     <th>Voltage</th>
                 </tr>
-                {% for cord in solCord %}
+            </thead>
+            <tbody>
+
+            {% for row in SolCord%}
                 <tr>
-                    {% for cell in cord %}
-                        <td>{{ cell }}</td>
-                    {% endfor %}
+            {% for element in row%}
+                <td>
+                {{ element}}
+                </td>
+            {% endfor %}
                 </tr>
-                {% endfor %}
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        <div>
+            <table>
+                <caption><h2>Table for General Solution Graph </h2></caption>
+            <thead>
+                <tr>
+                    <th>Time in Centiseconds</th>
+                    <th>Voltage</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for row in EulersCord%}
+                <tr>
+            {% for element in row%}
+                <td>
+                {{ element}}
+                </td>
+            {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
             </table>
         </div>
     </div>
