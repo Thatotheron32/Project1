@@ -14,7 +14,7 @@ def Valueset(V,R,C,T):
     timeMax = float(T)
 
 #Real Value Calculation of the function
-def rccalc():
+def rcsolcalc():
     global voltage, RVal, CVal, timeMax
     Rcords = [] #Cord list for Graphe, and Table
     i = 0
