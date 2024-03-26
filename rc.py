@@ -7,7 +7,7 @@ rc = Blueprint(__name__, "rc")
 def rccalc():
     return render_template("rc.html")
 
-@rc.route("/", methods = ['POST','GET'])
+@rc.route("/", methods = ['POST'])
 def getvalue():
     Valueset(request.form['IVolt'], request.form['ResVal'], request.form['CapVal'], request.form['Maxtime'])
     SolCord = rcsolcalc() 
