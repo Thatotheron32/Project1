@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/rccalc.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>RC Circuit Calculator</title>
 </head>
 <article>
@@ -34,7 +33,7 @@
                 <label for="ResVal"> Resistor Value </label><br>
                 <input type="number" id="ResVal" name="ResVal" value="0"step="0.1" min="0.1" max="100"><br>
                 <label for="CapVal"> Capacitor Value, scale is in MilliFarads.</label><br>
-                <input type="number" id="CapVal" name="CapVal" value="0" step=""0.01 min="0.01" max="100"><br>
+                <input type="number" id="CapVal" name="CapVal" value="0" step="0.01" min="0.01" max="100"><br>
                 <label for="Maxtime"> Enter maximum time for function, scale is in Centiseconds </label><br>
                 <input type="number" id="Maxtime" name="Maxtime" value="0" step= "10" min="10" max="1000"><br>
                 <label for="Steptime"> Enter time step for Euler's method, scale is in Centiseconds </label><br>
@@ -43,43 +42,45 @@
                 <input type="reset" value="Reset">
             </form>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div>
-            <canvas id = ”RCchart” width=”900” height = “900”> 
-
-            </canvas> 
-            <script>
-                var RCchart = document.getElementById("RCchart").getContext("2d")
-                var lineChart = new Chart("RCchart",{
-                    type: "line",
-                    data:{
-                        labels : {{ x | safe}},
-                        datasets: [{
+            <canvas id = ”RCchart” width=”900” height = “900”></canvas>
+        </div>
+        <script>
+            var RCGchart = document.getElementById("RCchart").getContext("2d");
+            var lineChart = new Chart(RCGchart, {
+                type: "line",
+                data:{
+                    labels : {{ label | safe}},
+                    datasets: [
+                        {
                             label: "Real Voltage",
                             borderColor: "red",
                             fill : false,
-                            data: {{ realY | safe}},
+                            data: {{ voltage | safe }},
                             lineTension: 0.1
-                        },{
+                            },{
                             label: "Estimated Voltage",
                             borderColor: "green",
                             fill : false,
-                            data: {{ CalcV | safe }}
+                            data: {{ Eulersvoltage | safe }},
                             lineTension: 0.1
-                        }]
-                    },
-                    options: {
-                        resposive : false
-                        title: {
-                            display: true,
-                            text: 'Positive Cases of COVID in provinces of Canada'
-                            },
-                            hover: {
-                                mode: 'index',
-                                intersect: true
-                            },}
-                });
-            </script>
-        </div>
+                        }
+                    ]
+                },
+                options: {
+                    resposive : false,
+                    title: {
+                        display: true,
+                        text: graph
+                        },
+                        hover: {
+                            mode: 'index',
+                            intersect: true
+                        }
+                }
+            });
+        </script>
         <div>
             <table>
                 <caption><h2>Table for General Solution Graph </h2></caption>
@@ -105,11 +106,14 @@
         </div>
         <div>
             <table>
-                <caption><h2>Table for General Solution Graph </h2></caption>
+                <caption><h2>Table for Eulers Table Graph </h2></caption>
             <thead>
                 <tr>
+                    <th>Number of Iterations</th>
                     <th>Time in Centiseconds</th>
-                    <th>Voltage</th>
+                    <th>Estimated Voltage</th>
+                    <th>dV/dT</th>
+                    <th>DeltaY</th>
                 </tr>
             </thead>
             <tbody>
