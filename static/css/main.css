@@ -6,12 +6,15 @@ header{
   position: relative;
 }
 
-body{
-  padding: 0;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
   margin: 0;
+  padding: 0;
   text-align: center;
-  background-color: #FFFFFF;
 }
+
 
 nav {
   overflow: hidden;

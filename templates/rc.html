@@ -21,11 +21,14 @@
       </ul> 
 </nav>
 
-<body>
-    <p>This was a page made for an RC Circuit Calculator and Grapher that will give you solutions in both a table form and a Graph. </p>
 
-    <div class="flex-container">
-        <div>
+<body>
+    <div>
+        <h3>RC Caculator and Grapher </h3>
+    </div>
+    <div class = "container">
+
+        <div class = "forms">
             <h3>Enter Values Here for the Graph</h3>
             <form action="{{ url_for('rc.rccalc') }}" method="post"> 
                 <label for="IVolt"> Initial Voltage</label><br>
@@ -39,54 +42,44 @@
                 <label for="Steptime"> Enter time step for Euler's method, scale is in Centiseconds </label><br>
                 <input type="number" id="Steptime" name="Steptime" value="0" step="0.01" min="0.01" max="100" ><br>
                 <input type="submit" value="Submit">
-                <input type="reset" value="Reset">
             </form>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <div>
-            <canvas id = ”RCchart” width=”900” height = “900”></canvas>
+    
+
+
+        
+        <div class = "Chart">
+            <div>
+                <canvas id="RCChart" width="900" height="400"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const RCchart = document.getElementById('RCChart').getContext('2d');
+                const RChart = new Chart(RCchart, {
+                    type: "line",
+                    data:{
+                        labels : {{ Calclabel | safe}},
+                        datasets: [{
+                                label: "Real Voltage",
+                                borderColor: "red",
+                                fill : false,
+                                data: {{ voltage | safe }},
+                                lineTension: 0.1
+                                }]
+                    },
+                    options: {
+                        resposive: false
+                    }
+                });
+            </script>
         </div>
-        <script>
-            var RCGchart = document.getElementById("RCchart").getContext("2d");
-            var lineChart = new Chart(RCGchart, {
-                type: "line",
-                data:{
-                    labels : {{ label | safe}},
-                    datasets: [
-                        {
-                            label: "Real Voltage",
-                            borderColor: "red",
-                            fill : false,
-                            data: {{ voltage | safe }},
-                            lineTension: 0.1
-                            },{
-                            label: "Estimated Voltage",
-                            borderColor: "green",
-                            fill : false,
-                            data: {{ Eulersvoltage | safe }},
-                            lineTension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    resposive : false,
-                    title: {
-                        display: true,
-                        text: graph
-                        },
-                        hover: {
-                            mode: 'index',
-                            intersect: true
-                        }
-                }
-            });
-        </script>
-        <div>
+
+        <div class = "table-container" style="overflow-y: auto; max-height: 600px;">
             <table>
                 <caption><h2>Table for General Solution Graph </h2></caption>
             <thead>
                 <tr>
-                    <th>Time in Centiseconds</th>
+                    <th>Time in Seconds</th>
                     <th>Voltage</th>
                 </tr>
             </thead>
@@ -104,13 +97,39 @@
             </tbody>
             </table>
         </div>
-        <div>
+        <div class = "Chart">
+            <div>
+                <canvas id="eulerChart" width="900" height="400"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const Eulerchart = document.getElementById('eulerChart').getContext('2d');
+                const EChart = new Chart( Eulerchart, {
+                    type: "line",
+                    data:{
+                        labels : {{ estlabel | safe}},
+                        datasets: [{
+                                label: "Estimated Voltage",
+                                borderColor: "green",
+                                fill : false,
+                                data: {{ Eulersvoltage | safe }},
+                                lineTension: 0.1
+                            }]
+                    },options: {
+                        resposive: false
+                    }
+                });
+            </script>
+        </div>
+
+
+        <div class = "table-container" style="overflow-y: auto; max-height: 600px;">
             <table>
                 <caption><h2>Table for Eulers Table Graph </h2></caption>
             <thead>
                 <tr>
                     <th>Number of Iterations</th>
-                    <th>Time in Centiseconds</th>
+                    <th>Time in Seconds</th>
                     <th>Estimated Voltage</th>
                     <th>dV/dT</th>
                     <th>DeltaY</th>
@@ -130,6 +149,114 @@
             </tbody>
             </table>
         </div>
+    </div>
+    <div class="intro">
+        <h2>Description of a RC Circuit</h2>
+        <p>Our project is based on the concept of RC circuits, specifically on its discharge.</p>
+        <h4>Voltage: Force that pushes charged electrons (current) through a circuit</h4>
+        <h4> Current: Rate of flow of electrons; measured in Amperes (Amps/A)</h4>
+        
+        <h3>Explanation of Circuit Components:</h3>
+        <table>
+        <thead>
+        <tr>
+            <th>Info</th>
+            <th>Voltage Source (ε)</th>
+            <th>Resistor (R)</th>
+            <th>Capacitor (C)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Use case</td>
+            <td>Supplies constant amount of Voltage</td>
+            <td>Component which regulates current flow</td>
+            <td>Component which is capable of storing electric charge</td>
+        </tr>
+        <tr>
+            <td>Measurment</td>
+            <td>Measured in Volts (V)</td>
+            <td>Measured in Ohms (Ω)</td>
+            <td>Measured in Farads (F)</td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="rcexp">
+         <img src="/static\css\DIFF EQ RC CKT.png" alt="RC Circuit Example"> 
+         <dl>
+            <dt>Circuit is wired in series orientation</li>
+                <dd> - Components are connected from end to end and all function together</dd>
+            <dt>Voltage pushes current through the components</dt>
+            <dt>Each component has its own recorded voltage from using Ohm’s Law</dt>
+                <dd> - V = IR</dd>
+            <dt>A toggleable switch is connected in the circuit</dt>
+            <dt>Position A</dt>
+                <dd> - Voltage is charging the capacitor until it reaches its maximum voltage (steady state)</dd>
+            <dt>Position B</dt>
+                <dd> - Voltage source is disconnected from the circuit</dd>
+                <dd> - Voltage is now being dissipated from the capacitor</dd>
+            <dt>While the capacitor is discharging voltage, charge, current, and voltage are all decreasing exponentially, approaching 0 as time increases</dt>
+                <dd> - Current also flows in the opposite direction, with respect to the polarity of the capacitor in the circuit and also how current is computed from charge</dd>
+        </dl> 
+    </div>
+    <div class= "rcdiv">
+        <h3>Deriving the Differential Equation and the General Solutionn</h3>
+        <img src="/static\css\derivediffeq.png" alt="Derived Eq"> 
+        <p>We start with the form at the very top. Since we are only concerned with discharge, our voltage, or the initial pushing force, is 0. The only change in the charge is therefore from the capacitor. This means the I or the current is dq/dt, change in charge of the capacitor. given the formula q=CV, so Vc is q/C. Vr = IR by ohm’s law. The derivation is attached below. Q is our initial value, and it has to be, since when t is 0, q(0) is the initial charge Q.
+    </p>
+    <p>Equilibrium is only for when Q is 0, which makes sense since the graph of the general solution tends to 0, and also dq/dt is 0 only if Q is 0. Charge in the capacitor also won’t go down if there is none to begin with.
+    </p>
+    </div>
+    <div class = "rclim">
+        <h3>Discussion of the Limitations/Assumptions of the Model:</h3>
+        <dl>
+            <dt>Model is only applicable with DC Voltage values</li>
+                <dd> - The current is flowing in one direction only</dd>
+                <dd> - Voltage is a constant number</dd>
+            <dt>The components of RC Circuits can be any arbitrary constant</dt>
+                <dd> - Not defined as variables/functions</dd>
+                <dd> - Except variable resistors (Potentiometers)</dd>
+            <dt>Wired in series</dt>
+                <dd> - Wiring in parallel would require different analysis techniques and the provided differential equation would not apply</dd>
+            <dt>Capacitor has a max amount of voltage that it can hold before it begins to discharge it</dt>
+                <dd> - Exceeding this voltage can lead to the capacitor exploding</dd>
+                <dd> - We assume that the capacitor has reached its steady state while using this equation</dd>
+            <dt>Assuming the circuit is completely ideal with no physical/external errors</dt>
+        </dl> 
+    </div>
+    <div class = "pesudo" >
+    <h3>Pseudocode</h3>
+    <img src="/static\css\newpseudodiagram.png" alt="Derived Eq" style="width:800px;height:575px;"> 
+    </div>
+
+    <div class = "application">
+        <h3>Applications of the RC Circuit:</h3>
+        <dl>
+            <dt>Intermittent windshield wipers</li>
+                <dd> - Sometimes use variable resistors to adjust time interval between times when a wiper will sweep.</dd>
+            <dt>Pacemakers</dt>
+                <dd> - Heart rate is usually controlled by signals</dd>
+                <dd> - Cause muscles of the heart to contract and pump blood</dd>
+                <dd> - Have sensors that detect motion of the body and breathing patterns to accommodate the heart rate accordingly</dd>
+                <dd> - RC time constant can be considered to control time between voltage signals to the heart</dd>
+        </dl>
+    </div>
+    <div class = "workcited"">
+        <h3>Applications of the RC Circuit:</h3>
+        <dl>
+            <dt>Dongyu</li>
+                <dd> - Implemented algorithm for variable solutions, troubleshooting and implemented flask for web app interactivity and report in a HTML format. Styled Website to make presentable and readability. Worked on gathering resources for developing algorithms.</dd>
+            <dt>Terrence</dt>
+                <dd> - Made diagrams for the website for better interpretation of the code and the derivation process of our formula, and worked on analysis of the differential equation such as the general solution and any equilibrium solutions, as well as interpreted the physical circuit in terms of the differential equation. Also got caught up to speed on RC circuits since I’m a mechanical engineer. </dd>
+            <dt>Tucker</dd>
+                <dd> - Described purposes of the components in the circuit and described the process of how the circuit performs. Discussed limitations and assumptions of the circuit and also discussed applications. Learned more about software applications from different languages. </dd>
+        </dl>
+
+        <h3>Works Cited</h3>
+        
+        <a href="https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)/Book%3A_University_Physics_II_-_Thermodynamics_Electricity_and_Magnetism_(OpenStax)/10%3A_Direct-Current_Circuits/10.06%3A_RC_Circuits\ ">Physlibretexts.org(Source 1)</a>
+        <a href="https://www.physnet.org/modules/pdf_modules/m350.pdf">physnet.org(Source 2)</a>
     </div>
 </body>
 </html>

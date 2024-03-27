@@ -10,7 +10,7 @@ def Valueset(V,R,C,T):
     global voltage, RVal, CVal, timeMax
     voltage = float(V)
     RVal = float(R)
-    CVal = float(C)
+    CVal = float(C)/1000
     timeMax = float(T)
 
 #Real Value Calculation of the function
@@ -19,7 +19,7 @@ def rcsolcalc():
     Rcords = [] #Cord list for Graphe, and Table
     i = 0
     while i < timeMax: #Starts a loop that stops when it's equal to asked time.
-        newCords = (i,) 
+        newCords = (i/100,) 
         Volt = ((round((voltage*math.e**(-1*((i/100)/(RVal*CVal)))),7)),) # Add newly calculated Voltage to the next spot on the list.
         newCords += Volt
         Rcords.append(newCords)
