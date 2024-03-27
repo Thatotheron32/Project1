@@ -18,7 +18,7 @@
         <li><a href="/.">Home</a></li>
         <li><a href="./">RC Circuit Calculator</a></li>
         <li><a href="about./">About</a></li>
-      </ul> 
+      </ul>
 </nav>
 
 
@@ -30,7 +30,7 @@
 
         <div class = "forms">
             <h3>Enter Values Here for the Graph</h3>
-            <form action="{{ url_for('rc.rccalc') }}" method="post"> 
+            <form action="{{ url_for('rc.rccalc') }}" method="post">
                 <label for="IVolt"> Initial Voltage</label><br>
                 <input type="number" id="IVolt" name="IVolt" value="0" step="0.1" min="0.1" max="100"><br>
                 <label for="ResVal"> Resistor Value </label><br>
@@ -44,10 +44,10 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
-    
 
 
-        
+
+
         <div class = "Chart">
             <div>
                 <canvas id="RCChart" width="900" height="400"></canvas>
@@ -155,7 +155,7 @@
         <p>Our project is based on the concept of RC circuits, specifically on its discharge.</p>
         <h4>Voltage: Force that pushes charged electrons (current) through a circuit</h4>
         <h4> Current: Rate of flow of electrons; measured in Amperes (Amps/A)</h4>
-        
+
         <h3>Explanation of Circuit Components:</h3>
         <table>
         <thead>
@@ -168,7 +168,7 @@
         </thead>
         <tbody>
         <tr>
-            <td>Use case</td>
+            <td>Uses case</td>
             <td>Supplies constant amount of Voltage</td>
             <td>Component which regulates current flow</td>
             <td>Component which is capable of storing electric charge</td>
@@ -183,7 +183,7 @@
         </table>
     </div>
     <div class="rcexp">
-         <img src="/static\css\DIFF EQ RC CKT.png" alt="RC Circuit Example"> 
+         <img src="/static\css\DIFF EQ RC CKT.png" alt="RC Circuit Example">
          <dl>
             <dt>Circuit is wired in series orientation</li>
                 <dd> - Components are connected from end to end and all function together</dd>
@@ -198,18 +198,18 @@
                 <dd> - Voltage is now being dissipated from the capacitor</dd>
             <dt>While the capacitor is discharging voltage, charge, current, and voltage are all decreasing exponentially, approaching 0 as time increases</dt>
                 <dd> - Current also flows in the opposite direction, with respect to the polarity of the capacitor in the circuit and also how current is computed from charge</dd>
-        </dl> 
+        </dl>
     </div>
     <div class= "rcdiv">
         <h3>Deriving the Differential Equation and the General Solutionn</h3>
-        <img src="/static\css\derivediffeq.png" alt="Derived Eq"> 
+        <img src="/static\css\derivediffeq.png" alt="Derived Eq">
         <p>We start with the form at the very top. Since we are only concerned with discharge, our voltage, or the initial pushing force, is 0. The only change in the charge is therefore from the capacitor. This means the I or the current is dq/dt, change in charge of the capacitor. given the formula q=CV, so Vc is q/C. Vr = IR by ohm’s law. The derivation is attached below. Q is our initial value, and it has to be, since when t is 0, q(0) is the initial charge Q.
     </p>
     <p>Equilibrium is only for when Q is 0, which makes sense since the graph of the general solution tends to 0, and also dq/dt is 0 only if Q is 0. Charge in the capacitor also won’t go down if there is none to begin with.
     </p>
     </div>
     <div class = "rclim">
-        <h3>Discussion of the Limitations/Assumptions of the Model:</h3>
+        <h3>Limitations/Assumptions of the Model:</h3>
         <dl>
             <dt>Model is only applicable with DC Voltage values</li>
                 <dd> - The current is flowing in one direction only</dd>
@@ -223,11 +223,11 @@
                 <dd> - Exceeding this voltage can lead to the capacitor exploding</dd>
                 <dd> - We assume that the capacitor has reached its steady state while using this equation</dd>
             <dt>Assuming the circuit is completely ideal with no physical/external errors</dt>
-        </dl> 
+        </dl>
     </div>
     <div class = "pesudo" >
     <h3>Pseudocode</h3>
-    <img src="/static\css\newpseudodiagram.png" alt="Derived Eq" style="width:800px;height:575px;"> 
+    <img src="/static\css\newpseudodiagram.png" alt="Derived Eq" style="width:800px;height:575px;">
     </div>
 
     <div class = "application">
@@ -243,7 +243,7 @@
         </dl>
     </div>
     <div class = "workcited"">
-        <h3>Applications of the RC Circuit:</h3>
+        <h3>Contributions and Works Cited</h3>
         <dl>
             <dt>Dongyu</li>
                 <dd> - Implemented algorithm for variable solutions, troubleshooting and implemented flask for web app interactivity and report in a HTML format. Styled Website to make presentable and readability. Worked on gathering resources for developing algorithms.</dd>
@@ -254,7 +254,7 @@
         </dl>
 
         <h3>Works Cited</h3>
-        
+
         <a href="https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)/Book%3A_University_Physics_II_-_Thermodynamics_Electricity_and_Magnetism_(OpenStax)/10%3A_Direct-Current_Circuits/10.06%3A_RC_Circuits\ ">Physlibretexts.org(Source 1)</a>
         <a href="https://www.physnet.org/modules/pdf_modules/m350.pdf">physnet.org(Source 2)</a>
     </div>
